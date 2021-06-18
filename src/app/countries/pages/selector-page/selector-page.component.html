@@ -1,0 +1,58 @@
+<h1>Nested Selectors</h1>
+
+<form [formGroup]="countriesForm" (ngSubmit)="saveForm()">
+  <!-- Region -->
+  <div class="row">
+    <div class="col">
+      <label class="form-label">Continent</label>
+      <select class="form-control" formControlName="region">
+        <option value="">Select your continent</option>
+        <option *ngFor="let region of regions" [value]="region | lowercase">{{region}}</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Countries -->
+  <div class="row mt-3" *ngIf="countries.length > 0">
+    <div class="col">
+      <label class="form-label">Country</label>
+      <select class="form-control" formControlName="country">
+        <option value="">Select your Country</option>
+        <option *ngFor="let country of countries" [value]="country.alpha3Code | lowercase">{{country.name}}
+        </option>
+      </select>
+    </div>
+  </div>
+
+   <!-- borders -->
+   <div class="row mt-3" *ngIf="borders.length > 0">
+    <div class="col">
+      <label class="form-label">Borders</label>
+      <select class="form-control" formControlName="border">
+        <option value="">Select your border</option>
+        <option *ngFor="let border of borders" [value]="border.alpha3Code">{{border.name}}
+        </option>
+      </select>
+    </div>
+  </div>
+  
+  <div class="row mt-3" *ngIf="appIsLoading">
+    <div class="col">
+      <div class="alert  alert-primary">
+        Cargando...
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row mt-3">
+    <div class="col">
+      <button type="submit" class="btn btn-primary float-end">Select</button>
+    </div>
+  </div>
+
+</form>
+
+<h4>Form</h4>
+<pre>{{countriesForm.valid}}</pre>
+<pre>{{countriesForm.value | json}}</pre>
